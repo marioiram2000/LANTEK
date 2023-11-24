@@ -1,0 +1,35 @@
+<div class="filters">
+  <mat-checkbox
+    formControlName="dosD"
+    (change)="filter($event.checked, 2)"
+    checked="true"
+  >
+    Tecnologías 2D
+  </mat-checkbox>
+  <mat-checkbox
+    formControlName="tresD"
+    (change)="filter($event.checked, 3)"
+    checked="true"
+  >
+    Tecnologías 3D
+  </mat-checkbox>
+</div>
+<table mat-table [dataSource]="filteredMaquinas">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+  <ng-container matColumnDef="manufacturer">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fabricante</th>
+    <td mat-cell *matCellDef="let element">{{ element.manufacturer }}</td>
+  </ng-container>
+  <ng-container matColumnDef="cuttingTechnology">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      Tecnología de corte
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.technology }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
