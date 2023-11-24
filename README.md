@@ -6,22 +6,32 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Preguntas
+1. How long did you spend on the coding test? What would you add to your solution if you had more time? If you didn't spend much time on the coding test, use this as an opportunity to explain what you would add.
+He tardado al rededor de 3 horas en hacer el proyecto entero. En caso de haber tenido más tiempo, me hubiese gustado añadir un login para las credenciales de la API y retocar los estilos y maquetación.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3. What was the most useful feature added to the latest version of your chosen language? Please include a snippet of code that shows how you've used it.
+Para gestionar las llamadas he usado un forkJoin en el que he unido las dos peticiones
+    const maquinas2D$: Observable<Maquina[]> =
+      this.inicioService.getMaquinas2D();
+    const maquinas3D$: Observable<Maquina[]> =
+      this.inicioService.getMaquinas3D();
 
-## Further help
+    forkJoin([maquinas2D$, maquinas3D$])
+      .pipe(
+        map(([maquinas2D, maquinas3D]) => {
+          this.maquinas = maquinas2D.concat(maquinas3D);
+          this.filteredMaquinas = this.maquinas;
+        })
+      )
+      .subscribe();
+5. How would you track down a performance issue in production? Have you ever had to do this?
+Si monitorizamos las peticiones y consultas, podremos saber cuando ocurre un error para poder solucionarlo lo antes posible.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+6. How would you improve the Lantek API that you just used?
+Con las conclusiones de ese monitoreo, podremos ver que datos se consultan repetidas veces para poder cachearlos.
+Por otra parte, se podrían usar algún token de seguridad derivado de un inicio de sesión
